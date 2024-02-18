@@ -65,7 +65,7 @@ function frameGenerator(frameProps: IFrameProps): string {
 app.get('/frame', (req, res) => {
 
     const frameProps: IFrameProps = {
-        imageUrl: 'https://i.imgur.com/osEKmhB.png',
+        imageUrl: 'https://images.unsplash.com/photo-1574390353491-92705370c72e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
         buttons: ['get', 'button2'],
     };
 
@@ -77,7 +77,7 @@ app.post('/frame', (req, res) => {
     console.log(req.body)
 
     const frameProps: IFrameProps = {
-        imageUrl:  'https://i.imgur.com/osEKmhB.png',
+        imageUrl:  'https://images.unsplash.com/photo-1625834384234-fd4eb7fe121f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
         buttons: ['post', 'button2'],
 
     };
