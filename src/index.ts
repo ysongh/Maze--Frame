@@ -1,6 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 
+import { createClient } from '@supabase/supabase-js';
+
+require('dotenv').config();
+
+const supabaseUrl = 'https://upgezenvxnpwatlcuuob.supabase.co';
+const supabase = createClient(supabaseUrl, process.env.SUPABASE_KEY || "string");
+
 const app = express();
 app.use(express.json());
 app.use(cors({
@@ -82,6 +89,17 @@ app.post('/frame', (req, res) => {
 
     };
     
+    res.status(200).send(frameGenerator(frameProps));
+});
+
+app.get('/test', (req, res) => {
+    console.log(supabase);
+
+    const frameProps: IFrameProps = {
+        imageUrl: 'https://images.unsplash.com/photo-1574390353491-92705370c72e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
+        buttons: ['get', 'button2'],
+    };
+
     res.status(200).send(frameGenerator(frameProps));
 });
 
