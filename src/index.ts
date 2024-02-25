@@ -1,7 +1,13 @@
 import express from 'express';
 import cors from 'cors';
+import satori from 'satori';
+import fs from 'fs';
+import { join } from 'path';
 
 import { createClient } from '@supabase/supabase-js';
+
+const fontPath = join(process.cwd(), '/font/Roboto-Regular.ttf');
+let fontData = fs.readFileSync(fontPath);
 
 require('dotenv').config();
 
@@ -85,15 +91,30 @@ app.post('/frame', (req, res) => {
 
     const frameProps: IFrameProps = {
         imageUrl:  'https://images.unsplash.com/photo-1625834384234-fd4eb7fe121f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
-        buttons: ['post', 'button2'],
+        buttons: ['put', 'button2'],
 
     };
     
     res.status(200).send(frameGenerator(frameProps));
 });
 
-app.get('/test', (req, res) => {
-    console.log(supabase);
+app.put('/test', async (req, res) => {
+    const svg = await satori(`
+        <div style={{ color: 'black' }}>hello, world</div>`,
+        {
+          width: 600,
+          height: 400,
+          fonts: [
+            {
+                name: 'Inter',
+                data: fontData,
+                weight: 400,
+                style: 'normal',
+              },
+          ],
+        },
+      )
+    console.log(svg);
 
     const frameProps: IFrameProps = {
         imageUrl: 'https://images.unsplash.com/photo-1574390353491-92705370c72e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
