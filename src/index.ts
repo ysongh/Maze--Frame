@@ -85,20 +85,20 @@ app.get('/frame', (req, res) => {
     res.status(200).send(frameGenerator(frameProps));
 });
 
-app.post('/frame', (req, res) => {
+// app.post('/frame', (req, res) => {
 
-    console.log(req.body)
+//     console.log(req.body)
 
-    const frameProps: IFrameProps = {
-        imageUrl:  'https://images.unsplash.com/photo-1625834384234-fd4eb7fe121f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
-        buttons: ['put', 'button2'],
+//     const frameProps: IFrameProps = {
+//         imageUrl:  'https://images.unsplash.com/photo-1625834384234-fd4eb7fe121f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWF6ZXxlbnwwfDB8MHx8fDI%3D',
+//         buttons: ['put', 'button2'],
 
-    };
+//     };
     
-    res.status(200).send(frameGenerator(frameProps));
-});
+//     res.status(200).send(frameGenerator(frameProps));
+// });
 
-app.put('/frame', async (req, res) => {
+app.post('/frame', async (req, res) => {
     const svg = await satori(`
         <div style={{ color: 'black' }}>hello, world</div>`,
         {
@@ -118,7 +118,7 @@ app.put('/frame', async (req, res) => {
 
     const frameProps: IFrameProps = {
         imageUrl: svg,
-        buttons: ['get', 'button2'],
+        buttons: ['post', 'button2'],
     };
 
     res.status(200).send(frameGenerator(frameProps));
