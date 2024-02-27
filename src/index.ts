@@ -3,6 +3,7 @@ import cors from 'cors';
 import satori from 'satori';
 import fs from 'fs';
 import { join } from 'path';
+import { Resvg } from '@resvg/resvg-js';
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -100,7 +101,7 @@ app.get('/frame', (req, res) => {
 
 app.post('/frame', async (req, res) => {
     const svg = await satori(`
-        <div style={{ color: 'black' }}>hello, world</div>`,
+        <div style={{ color: 'blue' }}>hello, world</div>`,
         {
           width: 600,
           height: 400,
@@ -115,6 +116,15 @@ app.post('/frame', async (req, res) => {
         },
       )
     console.log(svg);
+    const newPNG = new Resvg(svg, {
+        fitTo: {
+          mode: 'original'
+        }
+      })
+        .render()
+        .asPng();
+
+    console.log(newPNG);
 
     const frameProps: IFrameProps = {
         imageUrl: svg,
