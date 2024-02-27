@@ -66,8 +66,8 @@ function frameGenerator(frameProps: IFrameProps): string {
         <html>
             <head>
                 <meta charset="utf-8">
-                <title>Farcaster x Express Frame template</title>
-                <meta property="og:title" content="Sam Broner's express farcaster frame template" />
+                <title>Maze</title>
+                <meta property="og:title" content="Simple Maze Game" />
                 <meta property="og:image" content="https://example.com/img.png" />
                 ${metaTag}
             </head>
