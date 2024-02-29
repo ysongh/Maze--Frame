@@ -126,8 +126,12 @@ app.post('/frame', async (req, res) => {
 
     console.log(newPNG);
 
+    let str = newPNG.toString('base64');
+   
+    console.log(str);
+
     const frameProps: IFrameProps = {
-        imageUrl: svg,
+        imageUrl: `data:image/png;base64,${str}`,
         buttons: ['post', 'button2'],
     };
 
