@@ -30,6 +30,14 @@ interface IFrameProps {
     postUrl?: string;
 }
 
+const html = {
+    type: 'div',
+    props: {
+        children: 'Maze',
+        style: { color: 'blue' },
+    },
+};
+
 function generateFarcasterFrameMetaTag({ frame, imageUrl, postUrl, buttons }: IFrameProps): string {
     // Default to vNext
     if (!frame) {
@@ -100,8 +108,7 @@ app.get('/frame', (req, res) => {
 // });
 
 app.post('/frame', async (req, res) => {
-    const svg = await satori(`
-        <div style={{ color: 'blue' }}>hello, world</div>`,
+    const svg = await satori(html,
         {
           width: 600,
           height: 400,
@@ -112,9 +119,42 @@ app.post('/frame', async (req, res) => {
                 weight: 400,
                 style: 'normal',
               },
-          ],
+            ],
         },
-      )
+    )
+    const newPNG = new Resvg(svg, {
+        fitTo: {
+          mode: 'original'
+        }
+      })
+        .render()
+        .asPng();
+
+    let str = newPNG.toString('base64');
+
+    const frameProps: IFrameProps = {
+        imageUrl: `data:image/png;base64,${str}`,
+        buttons: ['post', 'button2'],
+    };
+
+    res.status(200).send(frameGenerator(frameProps));
+});
+
+app.get('/test', async (req, res) => {
+    const svg = await satori(html,
+        {
+          width: 600,
+          height: 400,
+          fonts: [
+                {
+                    name: 'Inter',
+                    data: fontData,
+                    weight: 400,
+                    style: 'normal',
+                },
+            ],
+        },
+    )
     console.log(svg);
     const newPNG = new Resvg(svg, {
         fitTo: {
@@ -130,12 +170,7 @@ app.post('/frame', async (req, res) => {
    
     console.log(str);
 
-    const frameProps: IFrameProps = {
-        imageUrl: `data:image/png;base64,${str}`,
-        buttons: ['post', 'button2'],
-    };
-
-    res.status(200).send(frameGenerator(frameProps));
+    res.status(200).send(`data:image/png;base64,${str}`);
 });
 
 app.listen(port, () => {
