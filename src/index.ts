@@ -30,12 +30,43 @@ interface IFrameProps {
     postUrl?: string;
 }
 
+const grid = [
+    [0, 1, 0, 0, 0, 1],
+    [0, 1, 0, 1, 0, 1],
+    [0, 1, 0, 1, 0, 1],
+    [0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 1, 0, 1],
+];
+
 const html = {
     type: 'div',
     props: {
-        children: 'Maze',
-        style: { color: 'blue' },
+        children: [
+            grid.map((r, i) => (
+                r.map((c, j) => (
+                    {
+                        type: 'div',
+                        props: {
+                            children: 'Maze',
+                            style : {
+                                background: c === 1 ? "black" : "yellow",
+                                width: "90px",
+                                height: "60px",
+                                margin: "2px"
+                            }
+                        },
+                    }
+                ))
+            ))
+        ],
+        style: { 
+            display: 'flex',
+            alignItems: "center",
+            flexWrap: "wrap",
+        },
     },
+    
 };
 
 function generateFarcasterFrameMetaTag({ frame, imageUrl, postUrl, buttons }: IFrameProps): string {
