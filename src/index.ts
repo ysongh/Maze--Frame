@@ -52,7 +52,7 @@ const html = {
                             style : {
                                 background: c === 1 ? "black" : "yellow",
                                 width: "90px",
-                                height: "60px",
+                                height: "50px",
                                 margin: "2px",
                                 fontSize: "50px",
                             }
@@ -143,7 +143,7 @@ app.post('/frame', async (req, res) => {
     const svg = await satori(html,
         {
           width: 600,
-          height: 400,
+          height: 350,
           fonts: [
             {
                 name: 'Inter',
@@ -176,7 +176,7 @@ app.get('/test', async (req, res) => {
     const svg = await satori(html,
         {
           width: 600,
-          height: 400,
+          height: 350,
           fonts: [
                 {
                     name: 'Inter',
