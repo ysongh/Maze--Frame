@@ -48,12 +48,13 @@ const html = {
                     {
                         type: 'div',
                         props: {
-                            children: 'Maze',
+                            children: i === 0 && j === 0 ? "X" : "",
                             style : {
                                 background: c === 1 ? "black" : "yellow",
                                 width: "90px",
                                 height: "60px",
-                                margin: "2px"
+                                margin: "2px",
+                                fontSize: "50px",
                             }
                         },
                     }
