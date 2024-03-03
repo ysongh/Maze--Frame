@@ -39,36 +39,39 @@ const grid = [
     [0, 0, 0, 1, 0, 1],
 ];
 
-const html = {
-    type: 'div',
-    props: {
-        children: [
-            grid.map((r, i) => (
-                r.map((c, j) => (
-                    {
-                        type: 'div',
-                        props: {
-                            children: i === 0 && j === 0 ? "X" : "",
-                            style : {
-                                background: c === 1 ? "black" : "yellow",
-                                width: "90px",
-                                height: "50px",
-                                margin: "2px",
-                                fontSize: "50px",
-                            }
-                        },
-                    }
+function getHTML(x: string, y: string): any {
+    return {
+        type: 'div',
+        props: {
+            children: [
+                grid.map((r, i) => (
+                    r.map((c, j) => (
+                        {
+                            type: 'div',
+                            props: {
+                                children: i === Number(x) && j == Number(y) ? "X" : "",
+                                style : {
+                                    background: c === 1 ? "black" : "yellow",
+                                    width: "90px",
+                                    height: "50px",
+                                    margin: "2px",
+                                    fontSize: "50px",
+                                }
+                            },
+                        }
+                    ))
                 ))
-            ))
-        ],
-        style: { 
-            display: 'flex',
-            alignItems: "center",
-            flexWrap: "wrap",
+            ],
+            style: { 
+                display: 'flex',
+                alignItems: "center",
+                flexWrap: "wrap",
+            },
         },
-    },
-    
-};
+        
+    };
+}
+
 
 function generateFarcasterFrameMetaTag({ frame, imageUrl, postUrl, buttons }: IFrameProps): string {
     // Default to vNext
@@ -140,7 +143,12 @@ app.get('/frame', (req, res) => {
 // });
 
 app.post('/frame', async (req, res) => {
-    const svg = await satori(html,
+    let { data: user, error } = await supabase
+        .from('user')
+        .select('*');
+
+    const newHTML = await getHTML(user![0].x, user![0].y);
+    const svg = await satori(newHTML,
         {
           width: 600,
           height: 350,
@@ -173,7 +181,12 @@ app.post('/frame', async (req, res) => {
 });
 
 app.get('/test', async (req, res) => {
-    const svg = await satori(html,
+    let { data: user, error } = await supabase
+        .from('user')
+        .select('*');
+
+    const newHTML = await getHTML(user![0].x, user![0].y);
+    const svg = await satori(newHTML,
         {
           width: 600,
           height: 350,
