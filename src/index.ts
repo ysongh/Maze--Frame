@@ -174,7 +174,7 @@ app.post('/frame', async (req, res) => {
 
     const frameProps: IFrameProps = {
         imageUrl: `data:image/png;base64,${str}`,
-        buttons: ['post', 'button2'],
+        buttons: ['up', 'down', 'left', 'right'],
     };
 
     res.status(200).send(frameGenerator(frameProps));
