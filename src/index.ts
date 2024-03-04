@@ -181,6 +181,13 @@ app.post('/frame', async (req, res) => {
 });
 
 app.get('/test', async (req, res) => {
+
+    const { data, error: insertError } = await supabase
+        .from('user')
+        .update({ x: '3' })
+        .eq('id', '1')
+        .select()
+        
     let { data: user, error } = await supabase
         .from('user')
         .select('*');
