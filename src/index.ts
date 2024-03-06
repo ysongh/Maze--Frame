@@ -151,7 +151,7 @@ app.post('/frame', async (req, res) => {
     const svg = await satori(newHTML,
         {
           width: 600,
-          height: 350,
+          height: 300,
           fonts: [
             {
                 name: 'Inter',
@@ -220,7 +220,7 @@ app.get('/test/:type', async (req, res) => {
     const svg = await satori(newHTML,
         {
           width: 600,
-          height: 350,
+          height: 300,
           fonts: [
                 {
                     name: 'Inter',
