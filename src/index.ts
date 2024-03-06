@@ -180,17 +180,41 @@ app.post('/frame', async (req, res) => {
     res.status(200).send(frameGenerator(frameProps));
 });
 
-app.get('/test', async (req, res) => {
+app.get('/test/:type', async (req, res) => {
+    const type = req.params.type;
 
-    const { data, error: insertError } = await supabase
-        .from('user')
-        .update({ x: '3' })
-        .eq('id', '1')
-        .select()
-        
     let { data: user, error } = await supabase
         .from('user')
         .select('*');
+    
+    if (type === "1") {
+        const { data, error: insertError } = await supabase
+            .from('user')
+            .update({ y: user![0].y + 1 })
+            .eq('id', '1')
+            .select();
+    }
+    else if (type === "2") {
+        const { data, error: insertError } = await supabase
+            .from('user')
+            .update({ y: user![0].y - 1 })
+            .eq('id', '1')
+            .select();
+    }
+    else if (type === "3") {
+        const { data, error: insertError } = await supabase
+            .from('user')
+            .update({ x: user![0].x - 1 })
+            .eq('id', '1')
+            .select();
+    }
+    else if (type === "4") {
+        const { data, error: insertError } = await supabase
+            .from('user')
+            .update({ x: user![0].x + 1 })
+            .eq('id', '1')
+            .select();
+    }
 
     const newHTML = await getHTML(user![0].x, user![0].y);
     const svg = await satori(newHTML,
