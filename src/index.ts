@@ -188,28 +188,28 @@ app.get('/test/:type', async (req, res) => {
         .select('*');
     
     if (type === "1") {
-        const { data, error: insertError } = await supabase
+        await supabase
             .from('user')
             .update({ y: user![0].y + 1 })
             .eq('id', '1')
             .select();
     }
     else if (type === "2") {
-        const { data, error: insertError } = await supabase
+        await supabase
             .from('user')
             .update({ y: user![0].y - 1 })
             .eq('id', '1')
             .select();
     }
     else if (type === "3") {
-        const { data, error: insertError } = await supabase
+        await supabase
             .from('user')
             .update({ x: user![0].x - 1 })
             .eq('id', '1')
             .select();
     }
     else if (type === "4") {
-        const { data, error: insertError } = await supabase
+        await supabase
             .from('user')
             .update({ x: user![0].x + 1 })
             .eq('id', '1')
